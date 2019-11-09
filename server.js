@@ -1,16 +1,15 @@
 // const PORT = process.env.PORT
+const path = require('path')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const router = require('./server/api')
+const router = require('./src/server/api')
 
 // const request = require("request")
-// const path = require('path')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(express.static(path.join(__dirname, 'dist')))
-
 // const Transaction = require('./transactionSchema')
 
 app.use(function (req, res, next) {
@@ -21,9 +20,14 @@ app.use(function (req, res, next) {
     next()
 })
 
+app.use(express.static(path.join(__dirname, 'build')))
+
 
 app.use("/", router)
 
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 // app.get('/Transactions', function (req, res) {
 //     Transaction.find({}, function (err, X) {
 //         res.send(x)
@@ -37,8 +41,8 @@ app.use("/", router)
 
 
 
-let port =  process.env.PORT || 3030  
+let port =   3030  
 let DBname = "Bank" 
 mongoose.connect( process.env.MONGODB_URI || `mongodb://localhost/${DBname}`, { useNewUrlParser: true }).then(() => {
-    app.listen(port, () => console.log(`Running server on port` + port))
+    app.listen(process.env.PORT || port, () => console.log(`Running server on port` + port))
 })
