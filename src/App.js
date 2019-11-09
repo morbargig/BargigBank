@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 // import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 import Transactions from './component/Transactions';
 import Operations from './component/Operations';
+import route from "./config/config"
 
 
 // import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
@@ -41,7 +42,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const res = await axios.get('http://localhost:3030/Transactions')
+    const res = await axios.get(`${route}Transactions`)
     console.log(res.data)
     this.setState({ data: res.data })
     console.log(this.state.data, this.state.users)
@@ -49,7 +50,7 @@ class App extends Component {
 
   addTransaction = async (Transaction) => {
     console.log(Transaction)
-    await axios.post('http://localhost:3030/Transaction', Transaction)
+    await axios.post(`${route}Transaction`, Transaction)
     // .then(res => {console.log(res); console.log(res.config.data) })
     // console.log("gdsg")
     this.componentDidMount()

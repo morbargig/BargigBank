@@ -132,5 +132,3 @@ class Operations extends Component {
 }
 
 export default Operations;
-//http://localhost:3030/Transactions
-//http://localhost:3030/transactions
