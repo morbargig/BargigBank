@@ -37,7 +37,8 @@ app.use("/", router)
 
 
 
-port =  process.env.PORT || 3030  
-mongoose.connect('mongodb://localhost/Bank', { useNewUrlParser: true }).then(() => {
+let port =  process.env.PORT || 3030  
+let DBname = "Bank" 
+mongoose.connect( process.env.MONGODB_URI || `mongodb://localhost/${DBname}`, { useNewUrlParser: true }).then(() => {
     app.listen(port, () => console.log(`Running server on port` + port))
 })
